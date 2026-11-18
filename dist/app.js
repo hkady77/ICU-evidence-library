@@ -297,7 +297,7 @@ function makeCard(article) {
   const time = card.querySelector("time");
   time.dateTime = article.date;
   time.textContent = formattedDate(article.date);
-  time.title = "Date added to Journal Watch";
+  time.title = "First publication date";
   const title = card.querySelector(".article-title");
   title.textContent = info.title || article.title;
   title.addEventListener("click", () => showArticle(article));
@@ -384,7 +384,7 @@ async function fetchIndex() {
   }));
   state.topics = data.topics;
   byId("window").textContent = formattedDate(data.windowStart) + " – " + formattedDate(data.windowEnd);
-  byId("latest-article").textContent = "Latest Journal Watch entries " + formattedDate(data.latest);
+  byId("latest-article").textContent = "Latest publication " + formattedDate(data.latest);
   byId("updated").textContent = "Last refreshed " + refreshTimeFormat.format(new Date(data.updated));
   buildTopics();
   const typeFilter = byId("type");
@@ -466,6 +466,6 @@ setInterval(reloadWhenVisible, 5 * 60 * 1000);
 loadIndex().catch(() => {
   byId("window").textContent = "Index unavailable";
   const message = element("p", "The evidence index could not load. Reload the page to try again. ", "empty");
-  message.append(externalLink("Open Journal Watch ↗", "https://criticalcarereviews.com/latest-evidence/journal-watch"));
+  message.append(externalLink("Open Europe PMC ↗", "https://europepmc.org/"));
   results.replaceChildren(message);
 });

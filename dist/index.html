@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f8f5">
   <meta name="apple-mobile-web-app-title" content="ICU Evidence">
-  <meta name="description" content="A reading index for Critical Care Reviews Journal Watch.">
+  <meta name="description" content="A searchable library of recent critical-care publications indexed in Europe PMC.">
   <title>ICU Evidence Library</title>
   <link rel="icon" type="image/png" href="icon.png">
   <link rel="apple-touch-icon" href="icon.png">
@@ -18,7 +18,7 @@
       <div class="brand"><img src="icon.png" alt="" width="36" height="36"><span>ICU Evidence Library</span></div>
       <nav class="masthead-nav" aria-label="Library navigation">
         <button id="show-folder" class="folder-link" type="button" aria-pressed="false">My folder</button>
-        <a class="source-link" href="https://criticalcarereviews.com/latest-evidence/journal-watch" target="_blank" rel="noopener noreferrer">Journal Watch <span aria-hidden="true">↗</span></a>
+        <a class="source-link" href="https://europepmc.org/" target="_blank" rel="noopener noreferrer">Europe PMC <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
@@ -28,12 +28,16 @@
       <div>
         <p class="eyebrow">Critical care literature</p>
         <h1 id="page-title">Evidence library</h1>
-        <p class="subtitle">Browse the latest three months of Critical Care Reviews Journal Watch by clinical topic and publication type.</p>
+        <p class="subtitle">Browse English-language PubMed records from Europe PMC published in the last three months, filtered by critical-care search terms.</p>
       </div>
       <div class="snapshot">
-        <span class="snapshot-label">Journal Watch window</span>
+        <span class="snapshot-label">Publication window</span>
         <strong id="window">Loading…</strong>
         <span id="latest-article"></span>
+        <details class="search-details">
+          <summary>Search coverage</summary>
+          <p>Matches intensive care, critical care, critically ill, septic shock, acute respiratory distress syndrome, mechanical ventilation or cardiac arrest in titles or abstracts. Includes English-language PubMed records. Publication types follow indexed metadata. Some records include preclinical research.</p>
+        </details>
         <span id="updated"></span>
         <button id="refresh" class="refresh" type="button">Reload library</button>
         <span id="refresh-status" role="status" aria-live="polite"></span>
@@ -79,7 +83,7 @@
     </section>
   </main>
   <footer>
-    <span>Journal Watch listing dates and publication types are from Critical Care Reviews. Topics are assigned automatically.</span>
+    <span>Publication dates and article types are from Europe PMC. Topics are assigned automatically from titles and indexed subject headings.</span>
     <a href="https://europepmc.org/" target="_blank" rel="noopener noreferrer">Article metadata via Europe PMC ↗</a>
   </footer>
   <dialog id="article-dialog" aria-labelledby="dialog-title">

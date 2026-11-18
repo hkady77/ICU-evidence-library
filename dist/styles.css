@@ -145,3 +145,7 @@ dialog::backdrop { background: #182b23a1; }
   .masthead-nav .source-link { display: none; }
   .article-actions { flex-shrink: 1; }
 }
+
+.search-details { max-width: 360px; }
+.search-details summary { color: var(--green); cursor: pointer; }
+.search-details p { font-size: .85rem; margin: 8px 0; }
