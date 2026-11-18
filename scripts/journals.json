@@ -1,0 +1,507 @@
+{
+  "reviewStart": "2026-05-19",
+  "reviewEnd": "2026-11-18",
+  "reviewedListings": 2391,
+  "sources": [
+    "https://criticalcarereviews.com/latest-evidence/journal-watch",
+    "https://criticalcarereviews.com/journal-watch/journal-watch-2026"
+  ],
+  "method": "Journals with at least 10 parsed CCR listings, plus five specialist journals found in the same window. Counts are deduplicated by DOI or article URL; citation parsing may leave some journal labels unresolved. This is a fixed, editable shortlist, not CCR editorial selection.",
+  "journals": [
+    {
+      "name": "Critical care (London, England)",
+      "abbreviation": "Crit Care",
+      "issns": [
+        "1364-8535",
+        "1466-609X"
+      ],
+      "ccrCitationCount": 197,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Intensive care medicine",
+      "abbreviation": "Intensive Care Med",
+      "issns": [
+        "0342-4642",
+        "1432-1238"
+      ],
+      "ccrCitationCount": 139,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of clinical medicine",
+      "abbreviation": "J Clin Med",
+      "issns": [
+        "2077-0383"
+      ],
+      "ccrCitationCount": 75,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "American journal of respiratory and critical care medicine",
+      "abbreviation": "Am J Respir Crit Care Med",
+      "issns": [
+        "1073-449X",
+        "1535-4970"
+      ],
+      "ccrCitationCount": 62,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Critical care medicine",
+      "abbreviation": "Crit Care Med",
+      "issns": [
+        "0090-3493",
+        "1530-0293"
+      ],
+      "ccrCitationCount": 57,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Annals of intensive care",
+      "abbreviation": "Ann Intensive Care",
+      "issns": [
+        "2110-5820"
+      ],
+      "ccrCitationCount": 52,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of cardiothoracic and vascular anesthesia",
+      "abbreviation": "J Cardiothorac Vasc Anesth",
+      "issns": [
+        "1053-0770",
+        "1532-8422"
+      ],
+      "ccrCitationCount": 52,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "JAMA",
+      "abbreviation": "JAMA",
+      "issns": [
+        "0098-7484",
+        "1538-3598"
+      ],
+      "ccrCitationCount": 35,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Critical care science",
+      "abbreviation": "Crit Care Sci",
+      "issns": [
+        "2965-2774"
+      ],
+      "ccrCitationCount": 31,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "The journal of trauma and acute care surgery",
+      "abbreviation": "J Trauma Acute Care Surg",
+      "issns": [
+        "2163-0755",
+        "2163-0763"
+      ],
+      "ccrCitationCount": 29,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Neurocritical care",
+      "abbreviation": "Neurocrit Care",
+      "issns": [
+        "1541-6933",
+        "1556-0961"
+      ],
+      "ccrCitationCount": 28,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "JAMA network open",
+      "abbreviation": "JAMA Netw Open",
+      "issns": [
+        "2574-3805"
+      ],
+      "ccrCitationCount": 26,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Anaesthesia",
+      "abbreviation": "Anaesthesia",
+      "issns": [
+        "0003-2409",
+        "1365-2044"
+      ],
+      "ccrCitationCount": 26,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Chest",
+      "abbreviation": "Chest",
+      "issns": [
+        "0012-3692",
+        "1931-3543"
+      ],
+      "ccrCitationCount": 24,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of critical care",
+      "abbreviation": "J Crit Care",
+      "issns": [
+        "0883-9441",
+        "1557-8615"
+      ],
+      "ccrCitationCount": 23,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of intensive medicine",
+      "abbreviation": "J Intensive Med",
+      "issns": [
+        "2097-0250",
+        "2667-100X"
+      ],
+      "ccrCitationCount": 22,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "JACC. Case reports",
+      "abbreviation": "JACC Case Rep",
+      "issns": [
+        "2666-0849"
+      ],
+      "ccrCitationCount": 20,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Resuscitation",
+      "abbreviation": "Resuscitation",
+      "issns": [
+        "0300-9572",
+        "1873-1570"
+      ],
+      "ccrCitationCount": 19,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "The New England journal of medicine",
+      "abbreviation": "N Engl J Med",
+      "issns": [
+        "0028-4793",
+        "1533-4406"
+      ],
+      "ccrCitationCount": 18,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of thoracic disease",
+      "abbreviation": "J Thorac Dis",
+      "issns": [
+        "2072-1439",
+        "2077-6624"
+      ],
+      "ccrCitationCount": 18,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Anesthesia and analgesia",
+      "abbreviation": "Anesth Analg",
+      "issns": [
+        "0003-2999",
+        "1526-7598"
+      ],
+      "ccrCitationCount": 18,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "British journal of anaesthesia",
+      "abbreviation": "Br J Anaesth",
+      "issns": [
+        "0007-0912",
+        "1471-6771"
+      ],
+      "ccrCitationCount": 18,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of anesthesia, analgesia and critical care",
+      "abbreviation": "J Anesth Analg Crit Care",
+      "issns": [
+        "2731-3786"
+      ],
+      "ccrCitationCount": 17,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Frontiers in medicine",
+      "abbreviation": "Front Med (Lausanne)",
+      "issns": [
+        "2296-858X"
+      ],
+      "ccrCitationCount": 17,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Frontiers in immunology",
+      "abbreviation": "Front Immunol",
+      "issns": [
+        "1664-3224"
+      ],
+      "ccrCitationCount": 17,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "World journal of critical care medicine",
+      "abbreviation": "World J Crit Care Med",
+      "issns": [
+        "2220-3141"
+      ],
+      "ccrCitationCount": 17,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Circulation",
+      "abbreviation": "Circulation",
+      "issns": [
+        "0009-7322",
+        "1524-4539"
+      ],
+      "ccrCitationCount": 16,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of intensive care medicine",
+      "abbreviation": "J Intensive Care Med",
+      "issns": [
+        "0885-0666",
+        "1525-1489"
+      ],
+      "ccrCitationCount": 15,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Anaesthesia, critical care & pain medicine",
+      "abbreviation": "Anaesth Crit Care Pain Med",
+      "issns": [
+        "2352-5568"
+      ],
+      "ccrCitationCount": 14,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Indian journal of critical care medicine : peer-reviewed, official publication of Indian Society of Critical Care Medicine",
+      "abbreviation": "Indian J Crit Care Med",
+      "issns": [
+        "0972-5229",
+        "1998-359X"
+      ],
+      "ccrCitationCount": 14,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Frontiers in cardiovascular medicine",
+      "abbreviation": "Front Cardiovasc Med",
+      "issns": [
+        "2297-055X"
+      ],
+      "ccrCitationCount": 13,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "European heart journal",
+      "abbreviation": "Eur Heart J",
+      "issns": [
+        "0195-668X",
+        "1522-9645"
+      ],
+      "ccrCitationCount": 13,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of the Society for Cardiovascular Angiography & Interventions",
+      "abbreviation": "J Soc Cardiovasc Angiogr Interv",
+      "issns": [
+        "2772-9303"
+      ],
+      "ccrCitationCount": 13,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Critical care and resuscitation : journal of the Australasian Academy of Critical Care Medicine",
+      "abbreviation": "Crit Care Resusc",
+      "issns": [
+        "1441-2772",
+        "2652-9335"
+      ],
+      "ccrCitationCount": 13,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Trauma surgery & acute care open",
+      "abbreviation": "Trauma Surg Acute Care Open",
+      "issns": [
+        "2397-5776"
+      ],
+      "ccrCitationCount": 13,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of intensive care",
+      "abbreviation": "J Intensive Care",
+      "issns": [
+        "2052-0492"
+      ],
+      "ccrCitationCount": 12,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Acta anaesthesiologica Scandinavica",
+      "abbreviation": "Acta Anaesthesiol Scand",
+      "issns": [
+        "0001-5172",
+        "1399-6576"
+      ],
+      "ccrCitationCount": 12,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "European heart journal. Acute cardiovascular care",
+      "abbreviation": "Eur Heart J Acute Cardiovasc Care",
+      "issns": [
+        "2048-8726",
+        "2048-8734"
+      ],
+      "ccrCitationCount": 11,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "BMJ (Clinical research ed.)",
+      "abbreviation": "BMJ",
+      "issns": [
+        "0959-8138",
+        "1756-1833"
+      ],
+      "ccrCitationCount": 11,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Critical care explorations",
+      "abbreviation": "Crit Care Explor",
+      "issns": [
+        "2639-8028"
+      ],
+      "ccrCitationCount": 10,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Lancet (London, England)",
+      "abbreviation": "Lancet",
+      "issns": [
+        "0140-6736",
+        "1474-547X"
+      ],
+      "ccrCitationCount": 10,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Acute and critical care",
+      "abbreviation": "Acute Crit Care",
+      "issns": [
+        "2586-6052",
+        "2586-6060"
+      ],
+      "ccrCitationCount": 10,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Journal of the Intensive Care Society",
+      "abbreviation": "J Intensive Care Soc",
+      "issns": [
+        "1751-1437",
+        "2057-360X"
+      ],
+      "ccrCitationCount": 10,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Clinical infectious diseases : an official publication of the Infectious Diseases Society of America",
+      "abbreviation": "Clin Infect Dis",
+      "issns": [
+        "1058-4838",
+        "1537-6591"
+      ],
+      "ccrCitationCount": 8,
+      "selectionReason": "Additional specialist journal"
+    },
+    {
+      "name": "The Lancet. Infectious diseases",
+      "abbreviation": "Lancet Infect Dis",
+      "issns": [
+        "1473-3099",
+        "1474-4457"
+      ],
+      "ccrCitationCount": 5,
+      "selectionReason": "Additional specialist journal"
+    },
+    {
+      "name": "Anesthesiology",
+      "abbreviation": "Anesthesiology",
+      "issns": [
+        "0003-3022",
+        "1528-1175"
+      ],
+      "ccrCitationCount": 7,
+      "selectionReason": "Additional specialist journal"
+    },
+    {
+      "name": "Current opinion in critical care",
+      "abbreviation": "Curr Opin Crit Care",
+      "issns": [
+        "1070-5295",
+        "1531-7072"
+      ],
+      "ccrCitationCount": 8,
+      "selectionReason": "Additional specialist journal"
+    },
+    {
+      "name": "Annals of the American Thoracic Society",
+      "abbreviation": "Ann Am Thorac Soc",
+      "issns": [
+        "2325-6621",
+        "2329-6933"
+      ],
+      "ccrCitationCount": 3,
+      "selectionReason": "Additional specialist journal"
+    },
+    {
+      "name": "Stroke",
+      "abbreviation": "Stroke",
+      "issns": [
+        "0039-2499",
+        "1524-4628"
+      ],
+      "ccrCitationCount": 10,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "The Lancet. Respiratory medicine",
+      "abbreviation": "Lancet Respir Med",
+      "issns": [
+        "2213-2600",
+        "2213-2619"
+      ],
+      "ccrCitationCount": 10,
+      "selectionReason": "At least 10 parsed CCR listings"
+    },
+    {
+      "name": "Current anesthesiology reports",
+      "abbreviation": "Curr Anesthesiol Rep",
+      "issns": [
+        "1523-3855",
+        "2167-6275"
+      ],
+      "ccrCitationCount": 14,
+      "selectionReason": "At least 10 parsed CCR listings"
+    }
+  ]
+}

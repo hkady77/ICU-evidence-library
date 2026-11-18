@@ -10,6 +10,7 @@ const dialog = byId("article-dialog");
 let summaryRequest;
 let indexRequest;
 let loadedVersion;
+let loadedFingerprint;
 const dateFormat = new Intl.DateTimeFormat("en-AU", {
   day: "numeric", month: "short", year: "numeric", timeZone: "Australia/Sydney",
 });
@@ -372,7 +373,14 @@ function loadIndex() {
 }
 
 async function fetchIndex() {
-  const response = await fetch("evidence.json", { cache: "no-store" });
+  // Unchanged refreshes download only this small manifest, not the whole library.
+  let fingerprint;
+  try {
+    const version = await fetch("version.json", { cache: "no-store", signal: AbortSignal.timeout(10000) });
+    if (version.ok) fingerprint = (await version.json()).version;
+  } catch { /* Older deployments or a manifest outage can still load the index. */ }
+  if (fingerprint && fingerprint === loadedFingerprint) return;
+  const response = await fetch("evidence.json", { cache: "no-cache", signal: AbortSignal.timeout(30000) });
   if (!response.ok) throw new Error("Evidence index unavailable");
   const data = await response.json();
   if (loadedVersion && Date.parse(data.updated) <= Date.parse(loadedVersion)) return;
@@ -394,6 +402,8 @@ async function fetchIndex() {
   typeFilter.value = types.includes(selected) ? selected : "";
   render();
   loadedVersion = data.updated;
+  loadedFingerprint = fingerprint;
+  byId("refresh-status").textContent = "";
 }
 
 function initializeControls() {
@@ -463,7 +473,9 @@ function reloadWhenVisible() {
 document.addEventListener("visibilitychange", reloadWhenVisible);
 window.addEventListener("focus", reloadWhenVisible);
 setInterval(reloadWhenVisible, 5 * 60 * 1000);
+byId("refresh-status").textContent = "Loading the journal-filtered library…";
 loadIndex().catch(() => {
+  byId("refresh-status").textContent = "Couldn’t load the library. Use Reload library to retry.";
   byId("window").textContent = "Index unavailable";
   const message = element("p", "The evidence index could not load. Reload the page to try again. ", "empty");
   message.append(externalLink("Open Europe PMC ↗", "https://europepmc.org/"));

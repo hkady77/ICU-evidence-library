@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Import English-language PubMed records from Europe PMC for a rolling three months."""
 import argparse
+import hashlib
+from html import unescape
 from datetime import date, datetime
 import json
 from pathlib import Path
@@ -11,6 +13,8 @@ from refresh import TOPICS, clean, cutoff, key_for, session, verified_pdf
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / 'dist/evidence.json'
+JOURNAL_FILE = ROOT / 'scripts/journals.json'
+MANIFEST = ROOT / 'dist/version.json'
 API = 'https://www.ebi.ac.uk/europepmc/webservices/rest/search'
 TERMS = [
     'intensive care', 'critical care', 'critically ill', 'septic shock',
@@ -43,7 +47,12 @@ def study_type(record):
 
 def query_for(start, end):
     topics = ' OR '.join(f'TITLE_ABS:"{term}"' for term in TERMS)
-    return (f'({topics}) AND FIRST_PDATE:[{start} TO {end}] '
+    selection = json.loads(JOURNAL_FILE.read_text())
+    issns = sorted({issn for journal in selection['journals'] for issn in journal['issns']})
+    if not issns or any(not re.fullmatch(r'[0-9]{4}-[0-9]{3}[0-9X]', value) for value in issns):
+        raise ValueError('Journal shortlist must contain valid ISSNs.')
+    journals = ' OR '.join(f'ISSN:{issn}' for issn in issns)
+    return (f'({topics}) AND ({journals}) AND FIRST_PDATE:[{start} TO {end}] '
             'AND SRC:MED AND LANG:eng')
 
 
@@ -52,7 +61,9 @@ def transform(record, start, end):
     pmid = record.get('pmid') or record.get('id', '')
     if not start <= published <= end or not re.fullmatch(r'\d+', pmid):
         return None
-    title = clean(record.get('title') or '').rstrip('.')
+    from bs4 import BeautifulSoup
+    raw_title = record.get('title') or ''
+    title = clean(BeautifulSoup(raw_title, 'html.parser').get_text(' ') if '<' in raw_title else unescape(raw_title)).rstrip('.')
     if not title:
         return None
     doi = (record.get('doi') or '').lower()
@@ -70,11 +81,22 @@ def transform(record, start, end):
         sourceType=', '.join(record.get('pubTypeList', {}).get('pubType', [])),
         topics=labels or ['General critical care'],
         metadata=dict(
-            title=title, doi=doi, journal=journal, pmid=pmid,
+            pmid=pmid,
             abstractUrl=abstract_url, hasAbstract=bool(record.get('abstractText')),
             pdf=pdf, fullText=full_text, openAccess=record.get('isOpenAccess') == 'Y',
         ),
     )
+
+
+def write_manifest(data):
+    manifest = dict(version=hashlib.sha256(OUTPUT.read_bytes()).hexdigest(),
+                    updated=data['updated'], articleCount=len(data['articles']))
+    content = json.dumps(manifest, separators=(',', ':')) + '\n'
+    if MANIFEST.exists() and MANIFEST.read_text() == content:
+        return
+    temporary = MANIFEST.with_suffix('.tmp')
+    temporary.write_text(content)
+    temporary.replace(MANIFEST)
 
 
 def refresh(today):
@@ -84,6 +106,8 @@ def refresh(today):
     cursor = '*'
     retrieved = 0
     records = {}
+    selection = json.loads(JOURNAL_FILE.read_text())
+    allowed = {re.sub(r'[^a-z0-9]', '', j['abbreviation'].lower()) for j in selection['journals']}
     with session() as client:
         while True:
             response = client.get(API, params=dict(
@@ -101,6 +125,9 @@ def refresh(today):
                 break
             retrieved += len(batch)
             for record in batch:
+                journal = record.get('journalInfo', {}).get('journal', {}).get('medlineAbbreviation', '')
+                if re.sub(r'[^a-z0-9]', '', journal.lower()) not in allowed:
+                    continue
                 row = transform(record, start, end)
                 if row:
                     records.setdefault(row['doi'] or row['metadata']['pmid'], row)
@@ -115,10 +142,12 @@ def refresh(today):
         raise RuntimeError('No articles returned. Existing index preserved.')
     articles = sorted(records.values(), key=lambda row: (row['date'], row['title']), reverse=True)
     previous = json.loads(OUTPUT.read_text()) if OUTPUT.exists() else {}
+    selection = json.loads(JOURNAL_FILE.read_text())
     previous_ids = {row['id'] for row in previous.get('articles', [])}
     data = dict(
         source='https://europepmc.org/', provider='Europe PMC',
         dateBasis='First publication date', searchQuery=query, searchTerms=TERMS,
+        journalSelection=selection,
         windowStart=start, windowEnd=end, latest=max(row['date'] for row in articles),
         updated=datetime.now(ZoneInfo('Australia/Sydney')).isoformat(timespec='seconds'),
         topics=[name for name, _ in TOPICS] + ['General critical care'], articles=articles,
@@ -126,11 +155,13 @@ def refresh(today):
     comparable_previous = {key: value for key, value in previous.items() if key != 'updated'}
     comparable_new = {key: value for key, value in data.items() if key != 'updated'}
     if comparable_previous == comparable_new:
+        write_manifest(previous)
         print('No changes. Existing snapshot retained.')
         return
     temporary = OUTPUT.with_suffix('.tmp')
     temporary.write_text(json.dumps(data, ensure_ascii=False, separators=(',', ':')) + '\n')
     temporary.replace(OUTPUT)
+    write_manifest(data)
     print(f'Saved {len(articles)} articles, {sum(bool(row["metadata"]["hasAbstract"]) for row in articles)} abstract records, '
           f'{sum(bool(row["metadata"]["pdf"]) for row in articles)} PDF links. '
           f'Latest publication {data["latest"]}. '
