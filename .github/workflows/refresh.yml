@@ -40,10 +40,10 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
         run: |
           changed=false
-          if ! git diff --quiet -- dist/evidence.json; then
+          if [ -n "$(git status --porcelain -- dist/evidence.json dist/version.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add dist/evidence.json
+            git add dist/evidence.json dist/version.json
             git commit -m "Refresh Europe PMC evidence"
             git push origin HEAD
             changed=true
