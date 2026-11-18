@@ -1,0 +1,45 @@
+name: Test Europe PMC access
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+
+      - name: Install requests
+        run: python -m pip install requests
+
+      - name: Test Europe PMC
+        run: |
+          python - <<'PY'
+          import requests
+
+          response = requests.get(
+              "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+              params={
+                  "query": "TITLE_ABS:sepsis",
+                  "format": "json",
+                  "resultType": "core",
+                  "pageSize": 3,
+              },
+              timeout=30,
+          )
+          print("HTTP status:", response.status_code)
+          response.raise_for_status()
+          data = response.json()
+          records = data.get("resultList", {}).get("result", [])
+          if not records:
+              raise RuntimeError("No article records returned.")
+          print("SUCCESS: Europe PMC is accessible.")
+          print("Matching articles:", data["hitCount"])
+          for article in records:
+              print(article.get("title", "Untitled"))
+          PY
