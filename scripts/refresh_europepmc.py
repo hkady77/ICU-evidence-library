@@ -20,6 +20,39 @@ TERMS = [
     'intensive care', 'critical care', 'critically ill', 'septic shock',
     'acute respiratory distress syndrome', 'mechanical ventilation', 'cardiac arrest',
 ]
+ADULT_AGES = {'adult', 'young adult', 'middle aged', 'aged', 'aged 80 and over'}
+CHILD_AGES = {'adolescent', 'child', 'child preschool', 'infant', 'infant newborn'}
+CHILD_TITLE = re.compile(
+    r'\b(?:pa?ediatric\w*|neonat\w*|newborns?|infants?|children|child|'
+    r'babies|baby|adolescen\w*|teenagers?|teens?|PICUs?|NICUs?)\b', re.I)
+ADULT_TITLE = re.compile(
+    r'\b(?:adults?|middle[ -]aged|older (?:people|patients|persons)|elderly|'
+    r'parents?|caregivers?|mothers?|fathers?|maternal|pregnan\w*)\b', re.I)
+POPULATION_POLICY = {
+    'label': 'Adult-focused',
+    'version': 1,
+    'description': 'Excludes records with child/adolescent/infant age indexing but no adult age indexing, '
+                   'or explicit paediatric/neonatal title wording. Adult age indexing or adult/mixed-age '
+                   'title context takes precedence. Mixed-age and age-unclear records are retained. '
+                   'This is a screening heuristic, not confirmation of adult-only eligibility.',
+}
+
+
+def population_exclusion(record, title):
+    """Conservative screening: retain adult, mixed-age and age-unclear records."""
+    headings = record.get('meshHeadingList', {}).get('meshHeading', [])
+    ages = {re.sub(r'[^a-z0-9]+', ' ', item.get('descriptorName', '').lower()).strip()
+            for item in headings}
+    # Child tags can coexist with adult tags or describe children of adult participants.
+    if ages & ADULT_AGES or ADULT_TITLE.search(title):
+        return None
+    if ages & CHILD_AGES:
+        return 'child_age_indexing_without_adult_context'
+    if CHILD_TITLE.search(title):
+        return 'paediatric_or_neonatal_title_without_adult_context'
+    return None
+
+
 TYPE_RULES = [
     ('Randomized Controlled Trial', 'Randomised trial'),
     ('Meta-Analysis', 'Systematic review / meta-analysis'),
@@ -106,6 +139,7 @@ def refresh(today):
     cursor = '*'
     retrieved = 0
     records = {}
+    population_excluded = {}
     selection = json.loads(JOURNAL_FILE.read_text())
     allowed = {re.sub(r'[^a-z0-9]', '', j['abbreviation'].lower()) for j in selection['journals']}
     with session() as client:
@@ -130,6 +164,10 @@ def refresh(today):
                     continue
                 row = transform(record, start, end)
                 if row:
+                    reason = population_exclusion(record, row['title'])
+                    if reason:
+                        population_excluded[reason] = population_excluded.get(reason, 0) + 1
+                        continue
                     records.setdefault(row['doi'] or row['metadata']['pmid'], row)
             print(f'Read {retrieved} of {payload["hitCount"]} records', flush=True)
             if retrieved >= payload['hitCount']:
@@ -148,11 +186,14 @@ def refresh(today):
         source='https://europepmc.org/', provider='Europe PMC',
         dateBasis='First publication date', searchQuery=query, searchTerms=TERMS,
         journalSelection=selection,
+        populationFilter=dict(POPULATION_POLICY, excludedCounts=population_excluded),
         windowStart=start, windowEnd=end, latest=max(row['date'] for row in articles),
         updated=datetime.now(ZoneInfo('Australia/Sydney')).isoformat(timespec='seconds'),
         topics=[name for name, _ in TOPICS] + ['General critical care'], articles=articles,
     )
     comparable_previous = {key: value for key, value in previous.items() if key != 'updated'}
+    print(f'Adult-focused screening excluded {sum(population_excluded.values())} records: '
+          f'{json.dumps(population_excluded, sort_keys=True)}', flush=True)
     comparable_new = {key: value for key, value in data.items() if key != 'updated'}
     if comparable_previous == comparable_new:
         write_manifest(previous)
